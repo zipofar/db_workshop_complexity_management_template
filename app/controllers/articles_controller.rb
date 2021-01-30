@@ -44,6 +44,26 @@ class ArticlesController < ApplicationController
     redirect_to root_path
   end
 
+  def publish
+    @article = Article.find(params[:id])
+
+    if @article.publish!
+      redirect_to @article
+    else
+      render :edit
+    end
+  end
+
+  def archive
+    @article = Article.find(params[:id])
+
+    if @article.archive!
+      redirect_to @article
+    else
+      render :edit
+    end
+  end
+
   private
 
   def article_params

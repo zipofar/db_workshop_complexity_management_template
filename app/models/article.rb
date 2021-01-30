@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
+  include ArticleStateMachine
+
   has_many :comments, dependent: :destroy
   belongs_to :category
 

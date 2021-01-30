@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root 'articles#index'
 
   resources :articles do
+    post :publish, on: :member
+    post :archive, on: :member
     resources :comments
   end
 end
