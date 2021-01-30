@@ -20,7 +20,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create' do
-    attrs = FactoryBot.attributes_for :article
+    attrs = FactoryBot.attributes_for(:article, category_id: Category.first.id)
 
     post articles_path, params: { article: attrs }
     assert_response :redirect
