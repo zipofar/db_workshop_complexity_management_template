@@ -3,9 +3,9 @@
 one:
   title: MyString
   body: My Super Text
-  category: one
+  article_category: one
 
 two:
   title: MyString
   body: My Super Text 2
-  category: two
+  article_category: two

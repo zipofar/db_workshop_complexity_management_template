@@ -20,13 +20,15 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create' do
-    attrs = FactoryBot.attributes_for(:article, category_id: Category.first.id)
+    article_category = article_categories(:one)
+    attrs = FactoryBot.attributes_for(:article, article_category_id: article_category.id)
 
     post articles_path, params: { article: attrs }
     assert_response :redirect
 
     article = Article.find_by(title: attrs[:title])
     assert { article }
+    assert { article.draft? }
   end
 
   test '#edit' do
@@ -50,7 +52,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#publish' do
     article = articles(:one)
 
-    post publish_article_path(article)
+    patch publish_article_path(article)
     assert_response :redirect
 
     article.reload
@@ -60,7 +62,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#archive' do
     article = articles(:one)
 
-    post archive_article_path(article)
+    patch archive_article_path(article)
     assert_response :redirect
 
     article.reload

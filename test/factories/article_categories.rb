@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :category do
+  factory :article_categories do
     name
   end
 end

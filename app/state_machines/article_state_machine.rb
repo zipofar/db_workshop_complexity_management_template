@@ -6,16 +6,17 @@ module ArticleStateMachine
   included do
     include AASM
 
-    aasm(:state, column: :state) do
+    aasm(:state) do
+      state :draft, initial: true
       state :published
       state :archived
 
       event :publish do
-        transitions to: :published
+        transitions from: :draft, to: :published
       end
 
       event :archive do
-        transitions to: :archived
+        transitions from: [:draft, :published], to: :archived
         after do
           touch(:archived_at) # rubocop:disable Rails/SkipsModelValidations
         end
