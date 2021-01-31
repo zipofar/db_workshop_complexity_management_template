@@ -16,7 +16,7 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   def update
     @article = Article.find(params[:id])
 
-    if @article.update(article_params)
+    if @article.update(article_params.merge({ article_category_id: category.id }))
       redirect_to web_admin_article_path @article
     else
       render :edit
@@ -53,6 +53,10 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :article_category_id)
+    params.require(:article).permit(:title, :body)
+  end
+
+  def category
+    @category ||= Article::Category.find(params[:article][:article_category_id])
   end
 end

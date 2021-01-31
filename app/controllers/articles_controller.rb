@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = category.articles.new(article_params)
 
     if @article.save
       redirect_to @article
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.published.find(params[:id])
 
-    if @article.update(article_params)
+    if @article.update(article_params.merge({ article_category_id: category.id }))
       redirect_to @article
     else
       render :edit
@@ -67,6 +67,10 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :article_category_id)
+    params.require(:article).permit(:title, :body)
+  end
+
+  def category
+    @category ||= Article::Category.find(params[:article][:article_category_id])
   end
 end

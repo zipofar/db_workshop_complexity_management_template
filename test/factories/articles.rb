@@ -4,6 +4,5 @@ FactoryBot.define do
   factory :article do
     title
     body
-    category { nil }
   end
 end

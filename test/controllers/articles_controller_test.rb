@@ -39,8 +39,9 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
   test '#update' do
     article = articles(:one)
+    article_category = article_categories(:one)
 
-    attrs = FactoryBot.attributes_for :article
+    attrs = FactoryBot.attributes_for(:article, article_category_id: article_category.id)
 
     patch article_path(article), params: { article: attrs }
     assert_response :redirect
