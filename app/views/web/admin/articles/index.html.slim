@@ -1,0 +1,15 @@
+h1 Articles
+
+table
+  thead
+    tr
+      th Title
+  tbody
+    - @articles.each do |article|
+      tr
+        th
+          = link_to article.title, web_admin_article_path(article)
+
+br
+
+= link_to "New Article", new_article_path

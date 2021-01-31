@@ -2,6 +2,7 @@
 
 class Article < ApplicationRecord
   include ArticleStateMachine
+  include ArticleRepository
 
   has_many :comments, dependent: :destroy
   belongs_to :article_category, class_name: '::Article::Category'

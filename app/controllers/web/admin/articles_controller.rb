@@ -1,37 +1,23 @@
 # frozen_string_literal: true
 
-class ArticlesController < ApplicationController
+class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   def index
-    @articles = Article.published
+    @articles = Article.all
   end
 
   def show
-    @article = Article.published.find(params[:id])
-  end
-
-  def new
-    @article = Article.new
-  end
-
-  def create
-    @article = Article.new(article_params)
-
-    if @article.save
-      redirect_to @article
-    else
-      render :new
-    end
+    @article = Article.find(params[:id])
   end
 
   def edit
-    @article = Article.published.find(params[:id])
+    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.published.find(params[:id])
+    @article = Article.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to web_admin_article_path @article
     else
       render :edit
     end

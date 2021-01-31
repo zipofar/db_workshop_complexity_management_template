@@ -4,8 +4,21 @@ one:
   title: MyString
   body: My Super Text
   article_category: one
+  state: published
 
-two:
+published:
   title: MyString
   body: My Super Text 2
   article_category: two
+  state: published
+
+draft:
+  title: MyString
+  body: My Super Text 3
+  article_category: two
+
+archived:
+  title: MyString
+  body: My Super Text 4
+  article_category: two
+  state: archived
