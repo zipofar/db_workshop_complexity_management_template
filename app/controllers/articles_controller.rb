@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
     @article = Article.published.find(params[:id])
 
     if @article.update(article_params.merge({ article_category_id: category.id }))
-      redirect_to @article
+      redirect_to web_admin_article_path @article
     else
       render :edit
     end

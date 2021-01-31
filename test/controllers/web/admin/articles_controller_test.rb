@@ -33,6 +33,19 @@ class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert { article.title == attrs[:title] }
   end
 
+  test '#update archived article' do
+    article = articles(:archived)
+    article_category = article_categories(:one)
+
+    attrs = FactoryBot.attributes_for(:article, article_category_id: article_category.id)
+
+    patch web_admin_article_path(article), params: { article: attrs }
+    assert_response :success
+
+    article.reload
+    assert { article.title != attrs[:title] }
+  end
+
   test '#publish' do
     article = articles(:draft)
 

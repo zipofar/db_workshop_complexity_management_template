@@ -15,9 +15,10 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
 
   def update
     @article = Article.find(params[:id])
+    article_mutator = ArticleMutator.new(@article)
 
-    if @article.update(article_params.merge({ article_category_id: category.id }))
-      redirect_to web_admin_article_path @article
+    if article_mutator.update(article_params, category)
+      redirect_to @article
     else
       render :edit
     end
