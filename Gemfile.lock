@@ -84,6 +84,8 @@ GEM
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     e2mmap (0.1.0)
+    enumerize (2.4.0)
+      activesupport (>= 3.2)
     erubi (1.10.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -283,6 +285,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  enumerize
   factory_bot_rails
   faker
   jbuilder (~> 2.7)

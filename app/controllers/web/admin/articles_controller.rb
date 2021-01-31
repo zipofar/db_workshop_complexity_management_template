@@ -6,36 +6,34 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    article
   end
 
   def edit
-    @article = Article.find(params[:id])
+    article
   end
 
   def update
-    @article = Article.find(params[:id])
-    article_mutator = ArticleMutator.new(@article)
+    article_mutator = ArticleMutator.new(article)
 
     if article_mutator.update(article_params, category)
-      redirect_to @article
+      redirect_to web_admin_article_path(article)
     else
       render :edit
     end
   end
 
   def destroy
-    @article = Article.find(params[:id])
-    @article.destroy
+    article.destroy
 
-    redirect_to root_path
+    redirect_to web_admin_articles_path
   end
 
   def publish
     @article = Article.find(params[:id])
 
     if @article.publish!
-      redirect_to @article
+      redirect_to web_admin_article_path(article)
     else
       render :edit
     end
@@ -45,7 +43,7 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
     @article = Article.find(params[:id])
 
     if @article.archive!
-      redirect_to @article
+      redirect_to web_admin_article_path(article)
     else
       render :edit
     end
@@ -59,5 +57,9 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
 
   def category
     @category ||= Article::Category.find(params[:article][:article_category_id])
+  end
+
+  def article
+    @article ||= Article.find(params[:id])
   end
 end

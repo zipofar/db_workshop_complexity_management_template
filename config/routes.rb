@@ -10,6 +10,12 @@ Rails.application.routes.draw do
         patch :publish, on: :member
         patch :archive, on: :member
       end
+
+      resources :comments, only: [:index] do
+        scope module: :comments do
+          resource :rating, only: [:update]
+        end
+      end
     end
   end
 
