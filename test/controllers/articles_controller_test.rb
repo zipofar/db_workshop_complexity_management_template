@@ -50,24 +50,13 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert { article.title == attrs[:title] }
   end
 
-  test '#publish' do
-    article = articles(:draft)
-
-    patch publish_article_path(article)
-    assert_response :redirect
-
-    article.reload
-    assert { article.published? }
-  end
-
-  test '#archive' do
+  test '#destroy' do
     article = articles(:one)
 
-    patch archive_article_path(article)
+    delete article_path(article)
     assert_response :redirect
 
-    article.reload
-    assert { article.archived? }
-    assert { article.archived_at }
+    article = Article.find_by(id: article.id)
+    assert { article.nil? }
   end
 end

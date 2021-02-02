@@ -2,12 +2,14 @@
 
 class  Web::Admin::Comments::RatingsController <  Web::Admin::Comments::ApplicationController
   def update
-    comment.finish_review
+    comment_rating_form = comment.becomes(Comment::RatingForm)
 
-    if comment.update(rating_params)
-      redirect_to web_admin_comments_path
+    if comment_rating_form.update(rating_params)
+      comment.finish_review!
+      redirect_to admin_comments_path
     else
-      render :index
+      error = comment_rating_form.errors.messages[:rating]
+      redirect_to admin_comments_path, flash: { error: "Rating #{error.first}" }
     end
   end
 

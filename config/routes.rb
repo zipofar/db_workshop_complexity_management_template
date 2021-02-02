@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'articles#index'
 
-  namespace :web do
+  scope module: :web do
     namespace :admin do
       resources :articles, except: [:create, :new] do
         patch :publish, on: :member

@@ -4,15 +4,28 @@ require 'test_helper'
 
 class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationTest
   test '#update' do
-  comment = comments(:one)
+    comment = comments(:one)
 
-  attrs = { rating: Comment.rating.values.first }
+    attrs = { rating: Comment.rating.values.first }
 
-  patch web_admin_comment_rating_path(comment), params: { comment: attrs }
-  assert_response :redirect
+    patch admin_comment_rating_path(comment), params: { comment: attrs }
+    assert_response :redirect
 
-  comment.reload
-  assert { comment.finished_review? }
-  assert { comment.rating == attrs[:rating] }
+    comment.reload
+    assert { comment.finished_review? }
+    assert { comment.rating == attrs[:rating] }
+  end
+
+  test '#update with empty rating' do
+    comment = comments(:one)
+
+    attrs = { rating: '' }
+
+    patch admin_comment_rating_path(comment), params: { comment: attrs }
+    assert_response :redirect
+
+    comment.reload
+    assert { comment.pending_review? }
+    assert { comment.rating.nil? }
   end
 end

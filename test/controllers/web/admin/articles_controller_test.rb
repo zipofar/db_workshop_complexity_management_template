@@ -4,19 +4,19 @@ require 'test_helper'
 
 class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#index' do
-    get web_admin_articles_path
+    get admin_articles_path
     assert_response :success
   end
 
   test '#show' do
     article = articles(:one)
-    get web_admin_article_path(article)
+    get admin_article_path(article)
     assert_response :success
   end
 
   test '#edit' do
     article = articles(:one)
-    get edit_web_admin_article_path(article)
+    get edit_admin_article_path(article)
     assert_response :success
   end
 
@@ -26,20 +26,20 @@ class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
 
     attrs = FactoryBot.attributes_for(:article, article_category_id: article_category.id)
 
-    patch web_admin_article_path(article), params: { article: attrs }
+    patch admin_article_path(article), params: { article: attrs }
     assert_response :redirect
 
     article.reload
     assert { article.title == attrs[:title] }
   end
 
-  test '#update archived article' do
+  test '#update category for archived article' do
     article = articles(:archived)
     article_category = article_categories(:one)
 
     attrs = FactoryBot.attributes_for(:article, article_category_id: article_category.id)
 
-    patch web_admin_article_path(article), params: { article: attrs }
+    patch admin_article_path(article), params: { article: attrs }
     assert_response :success
 
     article.reload
@@ -49,7 +49,7 @@ class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#publish' do
     article = articles(:draft)
 
-    patch publish_web_admin_article_path(article)
+    patch publish_admin_article_path(article)
     assert_response :redirect
 
     article.reload
@@ -59,7 +59,7 @@ class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#archive' do
     article = articles(:one)
 
-    patch archive_web_admin_article_path(article)
+    patch archive_admin_article_path(article)
     assert_response :redirect
 
     article.reload

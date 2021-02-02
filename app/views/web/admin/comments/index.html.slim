@@ -1,5 +1,9 @@
 h1 Comments
 
+- flash.each do |_, value|
+  b
+    | Error: #{value}
+
 table
   thead
     tr
@@ -10,7 +14,7 @@ table
         td
           = comment.body
         td
-          = simple_form_for(comment, url: web_admin_comment_rating_path(comment)) do |f|
+          = simple_form_for(comment, url: admin_comment_rating_path(comment)) do |f|
             = f.input :rating do
               = f.select :rating, Comment.rating.options, include_blank: true
             td

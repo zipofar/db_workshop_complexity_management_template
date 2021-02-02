@@ -8,6 +8,14 @@ p
 
 ul
   li
-    = link_to "Edit", edit_web_admin_article_path(@article)
+    = link_to "Edit", edit_admin_article_path(@article)
   li
-    = link_to "Destroy", web_admin_article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
+    = link_to "Destroy", admin_article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
+
+  -if !@article.published? && !@article.archived?
+    li
+      = link_to "Publish", publish_admin_article_path(@article), method: :patch, data: { confirm: "Are you sure?" }
+
+  -if !@article.archived?
+    li
+      = link_to "Archive", archive_admin_article_path(@article), method: :patch, data: { confirm: "Are you sure?" }
