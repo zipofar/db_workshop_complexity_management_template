@@ -1,8 +1,9 @@
 h1 Comments
 
-- flash.each do |_, value|
-  b
-    | Error: #{value}
+- if flash[:error]
+  - flash[:error].each do |error|
+    b
+      | Error: #{error}
 
 table
   thead

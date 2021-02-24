@@ -12,6 +12,12 @@ published:
   category: two
   state: published
 
+two_published:
+  title: MyString
+  body: My Super Text 2
+  category: two
+  state: published
+
 draft:
   title: MyString
   body: My Super Text 3

@@ -44,6 +44,7 @@ class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
 
     article.reload
     assert { article.title != attrs[:title] }
+    assert { article.category.id != attrs[:article_category_id] }
   end
 
   test '#publish' do

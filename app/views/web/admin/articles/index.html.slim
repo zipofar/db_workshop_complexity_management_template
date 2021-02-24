@@ -6,9 +6,9 @@ table
       th Title
       th Rating
   tbody
-    - @articles.zip(@ratings).each do |article, rating|
+    - @articles.each do |article|
       tr
         td
           = link_to article.title, admin_article_path(article)
         td
-          = rating
+          = article.ratings.first&.human_rating

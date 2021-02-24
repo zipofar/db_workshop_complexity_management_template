@@ -9,7 +9,7 @@ module ArticleStateMachine
     aasm(:state) do
       state :draft, initial: true
       state :published
-      state :archived
+      state :archived, before_enter: :set_archived_at
 
       event :publish do
         transitions from: :draft, to: :published
@@ -17,9 +17,6 @@ module ArticleStateMachine
 
       event :archive do
         transitions from: [:draft, :published], to: :archived
-        after do
-          touch(:archived_at) # rubocop:disable Rails/SkipsModelValidations
-        end
       end
     end
   end

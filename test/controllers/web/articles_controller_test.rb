@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class ArticlesControllerTest < ActionDispatch::IntegrationTest
+class Web::ArticlesControllerTest < ActionDispatch::IntegrationTest
   test '#index' do
     get articles_path
     assert_response :success

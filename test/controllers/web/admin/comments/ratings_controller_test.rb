@@ -3,10 +3,11 @@
 require 'test_helper'
 
 class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationTest
-  test '#update' do
+  test '#update when article has not rating' do
     comment = comments(:one)
+    article = comment.article
 
-    attrs = { rating: Comment.rating.values.first }
+    attrs = { rating: :neutral }
 
     patch admin_comment_rating_path(comment), params: { comment: attrs }
     assert_response :redirect
@@ -14,6 +15,23 @@ class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationT
     comment.reload
     assert { comment.finished_review? }
     assert { comment.rating == attrs[:rating] }
+    assert { article.ratings.count == 1 }
+  end
+
+  test '#update when article has rating' do
+    comment = comments(:for_published_article)
+    article = comment.article
+
+    attrs = { rating: :neutral }
+
+    patch admin_comment_rating_path(comment), params: { comment: attrs }
+    assert_response :redirect
+
+    comment.reload
+    assert { comment.finished_review? }
+    assert { comment.rating == attrs[:rating] }
+    assert { article.ratings.count == 2 }
+    assert { article.ratings.first.is_current_rating == false }
   end
 
   test '#update with empty rating' do

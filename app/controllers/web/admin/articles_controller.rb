@@ -2,8 +2,7 @@
 
 class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   def index
-    @articles = Article.all
-    @ratings = ArticleService.article_ratings(@articles)
+    @articles = Article.includes(:ratings).where('article_ratings.article_id IS NULL OR article_ratings.is_current_rating = ?', true).references(:ratings)
   end
 
   def show
@@ -15,7 +14,7 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   end
 
   def update
-    article_form = ArticleForm.find(params[:id])
+    article_form = article.becomes(Admin::UpdateArticleForm)
 
     if article_form.update(article_params)
       redirect_to action: :index
@@ -50,7 +49,7 @@ class Web::Admin::ArticlesController < Web::Admin::ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :article_category_id)
+    params.require(:article)
   end
 
   def article

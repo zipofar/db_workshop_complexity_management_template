@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Articles::CommentsControllerTest < ActionDispatch::IntegrationTest
+class Web::Articles::CommentsControllerTest < ActionDispatch::IntegrationTest
   test '#create' do
     article = articles(:one)
     attrs = FactoryBot.attributes_for(:comment)

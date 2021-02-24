@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class ArticlesController < ApplicationController
+class Web::ArticlesController < Web::ApplicationController
   def index
     @articles = Article.published
   end
 
   def show
-    @article = Article.published.find(params[:id])
+    article
   end
 
   def new
@@ -25,22 +25,21 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.published.find(params[:id])
+    article
   end
 
   def update
-    article_form = ArticleForm.published.find(params[:id])
+    article_form = article.becomes(ArticleForm)
 
     if article_form.update(article_params)
       redirect_to action: :index
     else
-      @article = article_form.becomes(Article)
       render :edit
     end
   end
 
   def destroy
-    Article.published.find(params[:id]).destroy
+    article.destroy
 
     redirect_to action: :index
   end
@@ -48,6 +47,10 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :article_category_id)
+    params.require(:article)
+  end
+
+  def article
+    @article ||= Article.published.find(params[:id])
   end
 end

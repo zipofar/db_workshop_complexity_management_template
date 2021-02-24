@@ -9,3 +9,22 @@ two:
   commenter: MyString
   body: MyText
   article: two
+
+for_published_article:
+  commenter: MyString
+  body: MyText
+  article: published
+
+one_with_positive_rating:
+  commenter: MyString
+  body: MyText
+  rating: 1
+  state: finished_review
+  article: two_published
+
+two_with_positive_rating:
+  commenter: MyString
+  body: MyText
+  rating: 1
+  state: finished_review
+  article: two_published

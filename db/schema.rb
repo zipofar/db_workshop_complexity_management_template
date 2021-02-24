@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_140920) do
+ActiveRecord::Schema.define(version: 2021_02_14_091015) do
 
   create_table "article_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "article_ratings", force: :cascade do |t|
+    t.integer "sum_of_ratings"
+    t.boolean "is_current_rating"
+    t.decimal "rating", precision: 3, scale: 2
+    t.integer "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_article_ratings_on_article_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -37,10 +47,11 @@ ActiveRecord::Schema.define(version: 2021_01_31_140920) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "state"
     t.datetime "reviewed_at"
-    t.string "rating"
+    t.integer "rating"
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  add_foreign_key "article_ratings", "articles"
   add_foreign_key "articles", "article_categories"
   add_foreign_key "comments", "articles"
 end

@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   root 'articles#index'
 
   scope module: :web do
+    resources :articles do
+      scope module: :articles do
+        resources :comments, only: [:create, :destroy]
+      end
+      patch :publish, on: :member
+      patch :archive, on: :member
+    end
     namespace :admin do
       resources :articles, except: [:create, :new] do
         patch :publish, on: :member
@@ -17,13 +24,5 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
-
-  resources :articles do
-    scope module: :articles do
-      resources :comments, only: [:create, :destroy]
-    end
-    patch :publish, on: :member
-    patch :archive, on: :member
   end
 end

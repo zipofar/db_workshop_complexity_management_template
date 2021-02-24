@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
-class  Web::Admin::Comments::RatingsController <  Web::Admin::Comments::ApplicationController
+class Web::Admin::Comments::RatingsController < Web::Admin::Comments::ApplicationController
   def update
-    comment_rating_form = comment.becomes(Comment::RatingForm)
+    comment_rating_form = current_comment.becomes(Comment::RatingForm)
+    comment = Comment::RatingMutator.update(comment_rating_form, rating_params)
 
-    if comment_rating_form.update(rating_params)
-      comment.finish_review!
-      redirect_to admin_comments_path
-    else
-      error = comment_rating_form.errors.messages[:rating]
-      redirect_to admin_comments_path, flash: { error: "Rating #{error.first}" }
+    unless comment.valid?
+      flash[:error] = comment.errors.full_messages
     end
+
+    redirect_to admin_comments_path
   end
 
   private
 
   def rating_params
-    params.require(:comment).permit(:rating)
+    params.require(:comment)
   end
 end
