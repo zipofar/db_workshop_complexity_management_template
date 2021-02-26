@@ -1,10 +1,5 @@
 h1 Comments
 
-- if flash[:error]
-  - flash[:error].each do |error|
-    b
-      | Error: #{error}
-
 table
   thead
     tr
@@ -15,8 +10,4 @@ table
         td
           = comment.body
         td
-          = simple_form_for(comment, url: admin_comment_rating_path(comment)) do |f|
-            = f.input :rating do
-              = f.select :rating, Comment.rating.options, include_blank: true
-            td
-              = f.button :submit
+          = render "web/admin/comments/ratings/form", comment: comment

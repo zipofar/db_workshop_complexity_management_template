@@ -1,4 +1,4 @@
-= simple_form_for [@article, @article.comments.build] do |f|
+= simple_form_for [article, comment] do |f|
  = f.input :commenter
  = f.input :body
  = f.submit
