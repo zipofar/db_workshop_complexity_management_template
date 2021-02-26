@@ -10,7 +10,6 @@ class Web::Admin::Comments::RatingsController < Web::Admin::Comments::Applicatio
     else
       render :edit
     end
-
   end
 
   private

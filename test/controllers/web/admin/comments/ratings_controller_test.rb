@@ -40,7 +40,7 @@ class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationT
     attrs = { rating: '' }
 
     patch admin_comment_rating_path(comment), params: { comment: attrs }
-    assert_response :redirect
+    assert_response :success
 
     comment.reload
     assert { comment.pending_review? }

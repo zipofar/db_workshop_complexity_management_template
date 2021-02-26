@@ -9,7 +9,6 @@ class Web::Articles::CommentsController < Web::Articles::ApplicationController
     else
       render 'web/comments/new', locals: { article: current_article }
     end
-
   end
 
   def destroy
