@@ -1,14 +1,13 @@
 h1 Articles
 
-table
-  thead
-    tr
-      th Title
-  tbody
-    - @articles.each do |article|
-      tr
-        th
+div
+  - @articles.each do |article|
+    .row class=["mb-4"]
+      .col
+        h2
           = link_to article.title, article
+
+        = link_to "Read More", article, class: "btn btn-outline-primary"
 
 br
 
