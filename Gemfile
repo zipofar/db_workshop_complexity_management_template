@@ -32,6 +32,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'aasm'
 gem 'active_form_model'
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views'
 gem 'enumerize'
 
 group :development, :test do

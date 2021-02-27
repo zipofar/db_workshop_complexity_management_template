@@ -1,0 +1,14 @@
+DEFAULTS: &DEFAULTS
+  first_name: $LABEL
+  last_name: Last
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  role: :user
+
+one:
+  <<: *DEFAULTS
+  email: $LABEL@email.com
+
+two:
+  <<: *DEFAULTS
+  email: $LABEL@email.de
+

@@ -18,7 +18,7 @@ db-reset:
 	rails db:fixtures:load
 
 start:
-	rails server
+	rails server -p 3001
 
 lint:
 	bundle exec rubocop
