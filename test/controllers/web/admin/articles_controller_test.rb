@@ -3,6 +3,11 @@
 require 'test_helper'
 
 class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    sign_in(@user)
+  end
+
   test '#index' do
     get admin_articles_path
     assert_response :success

@@ -54,5 +54,18 @@ jobs:
         run: |
           bin/rails db:setup
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Packages
+        run: npm install
+
+      - name: Compile frontend
+        env:
+          RAILS_ENV: test
+        run: bin/rails webpacker:compile
+
       - name: Run tests
         run: bin/rails test

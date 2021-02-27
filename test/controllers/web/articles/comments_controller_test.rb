@@ -3,6 +3,11 @@
 require 'test_helper'
 
 class Web::Articles::CommentsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    sign_in(@user)
+  end
+
   test '#create' do
     article = articles(:one)
     attrs = FactoryBot.attributes_for(:comment)

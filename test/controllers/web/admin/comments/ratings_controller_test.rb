@@ -3,6 +3,11 @@
 require 'test_helper'
 
 class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    sign_in(@user)
+  end
+
   test '#update when article has not rating' do
     comment = comments(:one)
     article = comment.article
