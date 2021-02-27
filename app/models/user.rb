@@ -9,4 +9,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enumerize :role, in: [:user, :admin], default: :user, predicates: true
+
+  has_many :comments, dependent: :destroy
 end

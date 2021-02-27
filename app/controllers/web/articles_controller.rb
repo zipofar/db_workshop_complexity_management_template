@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Web::ArticlesController < Web::ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @articles = Article.published
   end
