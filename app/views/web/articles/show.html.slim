@@ -7,14 +7,12 @@ i
 p
   = @article.body
 
-ul
+.btn-group.mb-5
   - if policy(@article).update?
-    li
-      = link_to "Edit", edit_article_path(@article)
+      = link_to "Edit", edit_article_path(@article), class: "btn btn-outline-primary"
 
   - if policy(@article).destroy?
-    li
-      = link_to "Destroy", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
+      = link_to "Destroy", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger"
 
 h2 Comments
 = render @article.comments

@@ -1,4 +1,4 @@
-= simple_form_for(comment, url: admin_comment_rating_path(comment)) do |f|
-  = f.input :rating do
-    = f.select :rating, Comment.rating.options, include_blank: true
-  = f.button :submit
+= simple_form_for comment, url: admin_comment_rating_path(comment), wrapper: :inline_form, html: { class: "form-inline" } do |f|
+  label class="form-label mr-3" Rating
+  = f.input :rating, as: :select, collection: Comment.rating.options
+  = f.button :submit, "Save", class: "btn btn-outline-primary ml-3"

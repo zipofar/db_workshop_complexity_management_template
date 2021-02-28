@@ -1,3 +1,11 @@
-h1 Add Rating
+.card.mb-3
+  .card-header.d-flex
+    .mr-auto
+      | Commenter:
+      '
+      = @comment.user&.email
 
-= render "form", comment: @comment
+  .card-body
+    p class="card-text"
+      = @comment.body
+      = render "form", comment: @comment

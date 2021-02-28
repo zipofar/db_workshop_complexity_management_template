@@ -3,11 +3,12 @@
 class Web::Admin::Comments::RatingsController < Web::Admin::Comments::ApplicationController
   def update
     comment_rating_form = current_comment.becomes(Comment::RatingForm)
-    @comment = Comment::RatingMutator.update(comment_rating_form, rating_params)
+    comment_mutator = Comment::RatingMutator.update(comment_rating_form, rating_params)
 
-    if @comment.valid?
+    if comment_mutator.valid?
       redirect_to admin_comments_path
     else
+      @comment = comment_mutator.becomes(Comment)
       render :edit
     end
   end

@@ -1,21 +1,17 @@
-h1
+h2
   = @article.title
+  span class="badge bg-primary ml-3"
+    = @article.state
+
 p
   = @article.body
 
-p
-  = @article.state
+.btn-group
+  = link_to "Edit", edit_admin_article_path(@article), class: "btn btn-outline-primary"
+  = link_to "Destroy", admin_article_path(@article), method: :delete, class: "btn btn-outline-danger", data: { confirm: "Are you sure?" }
 
-ul
-  li
-    = link_to "Edit", edit_admin_article_path(@article)
-  li
-    = link_to "Destroy", admin_article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
+  - if !@article.published? && !@article.archived?
+    = link_to "Publish", publish_admin_article_path(@article), method: :patch, class: "btn btn-outline-success", data: { confirm: "Are you sure?" }
 
-  -if !@article.published? && !@article.archived?
-    li
-      = link_to "Publish", publish_admin_article_path(@article), method: :patch, data: { confirm: "Are you sure?" }
-
-  -if !@article.archived?
-    li
-      = link_to "Archive", archive_admin_article_path(@article), method: :patch, data: { confirm: "Are you sure?" }
+  - if !@article.archived?
+    = link_to "Archive", archive_admin_article_path(@article), method: :patch, class: "btn btn-outline-secondary", data: { confirm: "Are you sure?" }

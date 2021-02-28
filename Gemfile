@@ -36,6 +36,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'enumerize'
+gem 'octicons_helper'
 gem "pundit"
 
 group :development, :test do

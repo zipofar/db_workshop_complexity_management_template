@@ -1,13 +1,14 @@
 h1 Comments
 
-table
-  thead
-    tr
-      th Comment
-  tbody
-    - @comments.each do |comment|
-      tr
-        td
-          = comment.body
-        td
-          = render "web/admin/comments/ratings/form", comment: comment
+- @comments.each do |comment|
+  .card.mb-3
+    .card-header.d-flex
+      .mr-auto
+        | Commenter:
+        '
+        = comment.user&.email
+
+    .card-body
+      p class="card-text"
+        = comment.body
+        = render "web/admin/comments/ratings/form", comment: comment

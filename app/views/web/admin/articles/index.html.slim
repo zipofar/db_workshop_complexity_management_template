@@ -1,10 +1,12 @@
 h1 Articles
 
-table
+table class="table"
   thead
     tr
-      th Title
-      th Rating
+      th scope="col"
+        | Title
+      th scope="col"
+       | Rating
   tbody
     - @articles.each do |article|
       tr

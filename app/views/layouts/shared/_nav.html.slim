@@ -1,4 +1,11 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.flex-shrink-0.border-bottom
+  - if user_signed_in?
+    ul.nav.mr-auto
+      li.nav-item.dropdown
+        a.nav-link.dropdown-toggle role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | Actions
+        .dropdown-menu aria-labelledby="navbarDropdown"
+          = link_to "New Article", new_article_path, class: "dropdown-item"
   ul.nav.ml-auto
     - if user_signed_in?
       li.nav-item.ml-2
