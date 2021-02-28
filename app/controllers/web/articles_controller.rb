@@ -17,6 +17,7 @@ class Web::ArticlesController < Web::ApplicationController
 
   def create
     article_form = ArticleForm.new(article_params)
+    article_form.user = current_user
 
     if article_form.save
       redirect_to action: :index
@@ -33,6 +34,8 @@ class Web::ArticlesController < Web::ApplicationController
   def update
     article_form = article.becomes(ArticleForm)
 
+    authorize(article)
+
     if article_form.update(article_params)
       redirect_to action: :index
     else
@@ -41,6 +44,8 @@ class Web::ArticlesController < Web::ApplicationController
   end
 
   def destroy
+    authorize(article)
+
     article.destroy
 
     redirect_to action: :index
