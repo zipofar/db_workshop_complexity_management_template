@@ -6,24 +6,29 @@ DEFAULTS: &DEFAULTS
 
 one:
   <<: *DEFAULTS
+  user: one
   category: one
   state: published
 
 published:
   <<: *DEFAULTS
+  user: one
   category: two
   state: published
 
 two_published:
   <<: *DEFAULTS
+  user: one
   category: two
   state: published
 
 draft:
   <<: *DEFAULTS
+  user: one
   category: two
 
 archived:
   <<: *DEFAULTS
+  user: one
   category: two
   state: archived

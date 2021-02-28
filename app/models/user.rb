@@ -11,4 +11,5 @@ class User < ApplicationRecord
   enumerize :role, in: [:user, :admin], default: :user, predicates: true
 
   has_many :comments, dependent: :destroy
+  has_many :articles, dependent: :destroy
 end

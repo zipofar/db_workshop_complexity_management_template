@@ -6,6 +6,7 @@ class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy, class_name: 'Article::Rating'
   belongs_to :category, inverse_of: :articles, class_name: 'Article::Category', foreign_key: :article_category_id
+  belongs_to :user, inverse_of: :articles
 
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }

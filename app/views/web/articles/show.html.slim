@@ -1,13 +1,20 @@
 h1
   = @article.title
+i
+  | Author
+  '
+  = @article.user.email
 p
   = @article.body
 
 ul
-  li
-    = link_to "Edit", edit_article_path(@article)
-  li
-    = link_to "Destroy", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
+  - if policy(@article).update?
+    li
+      = link_to "Edit", edit_article_path(@article)
+
+  - if policy(@article).destroy?
+    li
+      = link_to "Destroy", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }
 
 h2 Comments
 = render @article.comments
