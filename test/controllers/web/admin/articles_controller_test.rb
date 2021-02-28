@@ -4,7 +4,7 @@ require 'test_helper'
 
 class Web::Admin::ArticlesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = users(:one_admin)
     sign_in(@user)
   end
 
