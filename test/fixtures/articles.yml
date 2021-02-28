@@ -1,30 +1,29 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
+#
+DEFAULTS: &DEFAULTS
   title: MyString
   body: My Super Text
+
+one:
+  <<: *DEFAULTS
   category: one
   state: published
 
 published:
-  title: MyString
-  body: My Super Text 2
+  <<: *DEFAULTS
   category: two
   state: published
 
 two_published:
-  title: MyString
-  body: My Super Text 2
+  <<: *DEFAULTS
   category: two
   state: published
 
 draft:
-  title: MyString
-  body: My Super Text 3
+  <<: *DEFAULTS
   category: two
 
 archived:
-  title: MyString
-  body: My Super Text 4
+  <<: *DEFAULTS
   category: two
   state: archived

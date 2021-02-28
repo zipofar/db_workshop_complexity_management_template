@@ -7,6 +7,7 @@ class Comment < ApplicationRecord
   enumerize :rating, in: { positive: 1, neutral: 0, negative: -1 }
 
   belongs_to :article
+  belongs_to :user
 
   validates :body, presence: true
 end
