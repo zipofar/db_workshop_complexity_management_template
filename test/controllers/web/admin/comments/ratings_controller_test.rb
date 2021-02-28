@@ -24,7 +24,8 @@ class Web::Admin::Comments::RatingsControllerTest < ActionDispatch::IntegrationT
   end
 
   test '#update when article has rating' do
-    comment = comments(:for_published_article)
+    comment = comments(:one_one_user_one_article_published)
+
     article = comment.article
 
     attrs = { rating: :neutral }

@@ -4,5 +4,7 @@ p
 p
   strong Comment:
   = comment.body
-p
-  = link_to 'Destroy Comment', [comment.article, comment], method: :delete, data: { confirm: "Are you sure?" }
+
+- if user_signed_in? && policy([:article, comment]).destroy?
+  p
+    = link_to 'Destroy Comment', [comment.article, comment], method: :delete, data: { confirm: "Are you sure?" }

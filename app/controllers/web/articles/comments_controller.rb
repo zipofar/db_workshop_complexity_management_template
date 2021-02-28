@@ -14,6 +14,9 @@ class Web::Articles::CommentsController < Web::Articles::ApplicationController
 
   def destroy
     comment = current_article.comments.find(params[:id])
+
+    authorize([:article, comment])
+
     comment.destroy
 
     redirect_to article_path(current_article)
@@ -22,6 +25,6 @@ class Web::Articles::CommentsController < Web::Articles::ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:commenter, :body)
+    params.require(:comment).permit(:body)
   end
 end
