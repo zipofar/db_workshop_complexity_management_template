@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    ports:
+      - 8080:8080
+    volumes: &web-volumes
+      - .:/app:cached
+      - ~/.bash_history:/root/.bash_history
+      - bundle_cache:/bundle_cache
+    environment: &web-environment
+      BUNDLE_PATH: /bundle_cache
+      GEM_HOME: /bundle_cache
+      GEM_PATH: /bundle_cache
+      PORT: 8080
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:12.3-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  bundle_cache:
