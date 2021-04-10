@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust

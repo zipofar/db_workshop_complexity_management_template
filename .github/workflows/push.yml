@@ -1,0 +1,42 @@
+name: push
+on: [push]
+
+env:
+  APP_IMAGE_NAME: zipofar/db-workshop
+
+jobs:
+  check_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build App
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          cache-from: type=registry,ref=${{ env.APP_IMAGE_NAME }}:cached
+          cache-to: type=inline
+          push: true
+          tags: ${{ env.APP_IMAGE_NAME }}:cached
+
+      - name: Run Lint
+        run: docker-compose -f docker-compose.ci.yml run --rm web bash -c "bundle exec rubocop"
+
+      - name: Run Test
+        run: docker-compose -f docker-compose.ci.yml run --rm web bash -c "bundle exec rails db:create && DISABLE_SPRING=1 bundle exec rails test"
+
+      - name: Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          cache-from: type=registry,ref=${{ env.APP_IMAGE_NAME }}:cached
+          push: true
+          tags: ${{ env.APP_IMAGE_NAME }}:latest

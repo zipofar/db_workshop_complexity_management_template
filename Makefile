@@ -1,5 +1,5 @@
 test:
-	rails test
+	docker-compose run --rm web bash -c 'rails test'
 
 setup:
 	bin/setup
@@ -21,9 +21,12 @@ start:
 	rails server -p 3001
 
 lint:
-	bundle exec rubocop
+	docker-compose run --rm web bash -c 'bundle exec rubocop'
 
 linter-fix:
 	bundle exec rubocop --auto-correct
+
+into:
+	docker-compose run --rm web bash
 
 .PHONY: test
