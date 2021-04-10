@@ -31,7 +31,6 @@ jobs:
 
       - name: Run Test
         run: docker-compose -f docker-compose.ci.yml run --rm web bash -c "bundle exec rails db:create && DISABLE_SPRING=1 bundle exec rails test"
-        # run: docker-compose -f docker-compose.ci.yml run --rm web bash -c "RAILS_ENV=test bundle exec rails db:create db:schema:load && bundle exec rails test"
 
       - name: Push
         uses: docker/build-push-action@v2
