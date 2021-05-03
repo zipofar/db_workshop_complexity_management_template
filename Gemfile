@@ -21,6 +21,7 @@ gem 'devise-bootstrap-views'
 gem 'enumerize'
 gem 'octicons_helper'
 gem "pundit"
+gem 'rollbar'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
