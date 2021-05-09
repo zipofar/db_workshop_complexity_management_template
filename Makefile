@@ -17,9 +17,6 @@ db-reset:
 	rails db:migrate
 	rails db:fixtures:load
 
-start:
-	rails server -p 3001
-
 lint:
 	docker-compose run --rm web bash -c 'bundle exec rubocop'
 
