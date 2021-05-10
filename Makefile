@@ -1,9 +1,8 @@
 test:
-	docker-compose run --rm web bash -c 'rails test'
+	bundle exec rails test
 
 setup:
 	bin/setup
-	rails db:fixtures:load
 
 fixtures-load:
 	rails db:fixtures:load
@@ -18,12 +17,17 @@ db-reset:
 	rails db:fixtures:load
 
 lint:
-	docker-compose run --rm web bash -c 'bundle exec rubocop'
+	bundle exec rubocop
 
 linter-fix:
 	bundle exec rubocop --auto-correct
 
 into:
 	docker-compose run --rm web bash
+
+ci-check:
+	make setup
+	make lint
+	make test
 
 .PHONY: test

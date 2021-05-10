@@ -1,8 +1,9 @@
-FROM ruby:2.7.2-alpine3.12
+FROM ruby:2.7.2-alpine3.13
 
 ARG RAILS_ROOT=/app
 ARG PACKAGES="vim postgresql-client postgresql-dev curl bash tzdata build-base git yarn"
 ARG RAILS_MASTER_KEY=secret
+ARG RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
 RUN apk update \
@@ -22,7 +23,7 @@ ENV PATH=$RAILS_ROOT/bin:${PATH}
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile \
-      && RAILS_ENV=production RAILS_MASTER_KEY=$RAILS_MASTER_KEY bundle exec rails assets:precompile \
+      && RAILS_ENV=$RAILS_ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY bundle exec rails assets:precompile \
       && rm -rf node_modules
 
 
