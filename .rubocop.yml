@@ -11,6 +11,9 @@ AllCops:
     - 'db/migrate/**'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+    - 'config/routes.rb'
+    - 'config/initializers/**/*'
+    - 'Gemfile'
   NewCops: enable
 
 Style/ClassAndModuleChildren:
@@ -33,3 +36,7 @@ Style/Documentation:
 
 Metrics/BlockLength:
   Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+

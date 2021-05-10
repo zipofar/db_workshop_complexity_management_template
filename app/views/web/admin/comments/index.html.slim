@@ -1,0 +1,14 @@
+h1 Comments
+
+- @comments.each do |comment|
+  .card.mb-3
+    .card-header.d-flex
+      .mr-auto
+        | Commenter:
+        '
+        = comment.user&.email
+
+    .card-body
+      p class="card-text"
+        = comment.body
+        = render "web/admin/comments/ratings/form", comment: comment

@@ -8,4 +8,8 @@ FactoryBot.define do
   sequence :body do
     Faker::Lorem.paragraph_by_chars(number: 20)
   end
+
+  sequence :name do |n|
+    "Name #{n}"
+  end
 end

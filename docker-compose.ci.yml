@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        RAILS_ENV: test
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      RAILS_ENV: test
+      DISABLE_SPRING: 1
+    depends_on:
+      - db
+  db:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust

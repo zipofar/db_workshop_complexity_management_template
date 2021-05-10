@@ -1,0 +1,28 @@
+name: push
+on: [push]
+
+env:
+  APP_IMAGE_NAME: zipofar/db-workshop
+
+jobs:
+  check_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build App For Production
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          build-args: |
+            RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+            RAILS_ENV=production
+
+      - name: Run Check
+        env:
+          RAILS_ENV: test
+          DISABLE_SPRING: 1
+        run: |
+          docker-compose -f docker-compose.ci.yml run --rm web bash -c "make ci-check"

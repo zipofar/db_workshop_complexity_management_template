@@ -1,11 +1,33 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  commenter: MyString
+DEFAULTS: &DEFAULTS
   body: MyText
+
+one:
+  <<: *DEFAULTS
+  user: one
   article: one
 
 two:
-  commenter: MyString
-  body: MyText
+  <<: *DEFAULTS
+  user: two
   article: two
+
+one_one_user_one_article_published:
+  <<: *DEFAULTS
+  user: one
+  article: published
+
+one_with_positive_rating:
+  <<: *DEFAULTS
+  user: one
+  rating: 1
+  state: finished_review
+  article: two_published
+
+two_with_positive_rating:
+  <<: *DEFAULTS
+  user: one
+  rating: 1
+  state: finished_review
+  article: two_published

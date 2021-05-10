@@ -1,0 +1,22 @@
+h1
+  = @article.title
+i
+  | Author
+  '
+  = @article.user.email
+p
+  = @article.body
+
+.btn-group.mb-5
+  - if policy(@article).update?
+      = link_to "Edit", edit_article_path(@article), class: "btn btn-outline-primary"
+
+  - if policy(@article).destroy?
+      = link_to "Destroy", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger"
+
+h2 Comments
+= render @article.comments
+
+- if user_signed_in?
+  h2 Add a comment:
+  = render "web/comments/form", article: @article, comment: @article.comments.build

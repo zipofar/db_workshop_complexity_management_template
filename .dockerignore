@@ -1,0 +1,10 @@
+.git
+.dockerignore
+LICENSE.md
+README.md
+docker-compose.*
+Dockerfile
+log/*
+node_modules/*
+tmp/*
+infrastructure/*

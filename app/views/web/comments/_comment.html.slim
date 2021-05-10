@@ -1,0 +1,16 @@
+.card.mb-3
+  .card-header.d-flex
+    .mr-auto
+      | Commenter:
+      '
+      = comment.user&.email
+
+    - if user_signed_in? && policy([:article, comment]).destroy?
+      .ml-auto
+        = link_to [comment.article, comment], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-light" do
+          = octicon "trash", :height => 24
+  .card-body
+    p class="card-text"
+      = comment.body
+
+
